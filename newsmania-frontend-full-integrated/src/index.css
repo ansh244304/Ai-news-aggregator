@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+/* Class based dark mode, toggled from the navbar (html.dark) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ======================================================
+   DESIGN TOKENS
+   Space separated RGB values so Tailwind can build any
+   colour with an opacity step, and one place flips theme.
+   ====================================================== */
+:root {
+  color-scheme: light;
+
+  --bg: 246 247 250;
+  --card: 255 255 255;
+  --ink: 18 20 28;
+  --muted: 69 75 94;
+  --line: 227 229 236;
+  --primary: 35 71 232;
+  --primary-fg: 255 255 255;
+  --primary-soft: 232 237 255;
+  --streak: 194 65 12;
+  --success: 15 123 63;
+  --danger: 180 35 24;
+  --hero: 18 20 28;
+}
+
+.dark {
+  color-scheme: dark;
+
+  --bg: 14 16 24;
+  --card: 23 26 36;
+  --ink: 241 242 246;
+  --muted: 169 175 194;
+  --line: 42 47 63;
+  --primary: 127 152 255;
+  --primary-fg: 14 16 24;
+  --primary-soft: 35 42 74;
+  --streak: 251 146 60;
+  --success: 74 222 128;
+  --danger: 248 113 113;
+  --hero: 18 20 28;
+}
+
+@theme inline {
+  --font-display: "Bricolage Grotesque", Arial, sans-serif;
+  --font-sans: "DM Sans", Arial, ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+
+  --color-bg: rgb(var(--bg));
+  --color-card: rgb(var(--card));
+  --color-ink: rgb(var(--ink));
+  --color-muted: rgb(var(--muted));
+  --color-line: rgb(var(--line));
+  --color-primary: rgb(var(--primary));
+  --color-primary-fg: rgb(var(--primary-fg));
+  --color-primary-soft: rgb(var(--primary-soft));
+  --color-streak: rgb(var(--streak));
+  --color-success: rgb(var(--success));
+  --color-danger: rgb(var(--danger));
+  --color-hero: rgb(var(--hero));
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Dark mode never flashes white on first paint */
+    background-color: rgb(var(--bg));
+  }
+
+  body {
+    margin: 0;
+    background-color: rgb(var(--bg));
+    color: rgb(var(--ink));
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* One visible focus ring everywhere */
+  :focus-visible {
+    outline: 2px solid rgb(var(--primary));
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
